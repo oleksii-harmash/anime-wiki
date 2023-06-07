@@ -11,7 +11,7 @@
 >`npm install styled-components@latest`   
 >`npm install react-icons`  
 
-#### Всі налаштування на даний проект:
+#### Всі залежності на даний проект:
 >"dependencies": {  
     "@testing-library/jest-dom": "^5.16.5",  
     "@testing-library/react": "^13.4.0",  
