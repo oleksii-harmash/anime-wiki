@@ -28,10 +28,10 @@ function Main() {
                 <div className='favorite-filter'>
                     <button onClick={() => {def_rendered('favorite')}}>Favorite</button>
                 </div>
-                <form className='search-form' action=''>
+                <form className='search-form' action='' onSubmit={do_search}>
                     <div className='input'>
                         <input type='text' placeholder='Search Anime' value={search} onChange={write_search} /> 
-                        <button type='submit' onClick={do_search}>Search</button>
+                        <button type='submit'>Search</button>
                     </div>
                 </form>
                 <div className='airing-filter'>
