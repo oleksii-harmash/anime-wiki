@@ -1,15 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-
-import { GlobalContextProvider } from './context/global';
 import App from './App';
-import Style from './Styles';
+import { GlobalContextProvider } from './context/global';
+import GlobalStyle from './Gloabalstyle';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Style />
+    <GlobalStyle />
     <GlobalContextProvider>
       <App />
     </GlobalContextProvider>
