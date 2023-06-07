@@ -3,6 +3,9 @@
 
 Базовий API - Jikan Anime: https://api.jikan.moe/v4
 
+#### **Відео-демонстрація роботи вебсайту та всіх його фіч:**  
+https://youtu.be/Q2WCTd08xDw
+
 #### Налаштування проекту:  
 >`npx create-react-app .`  
 >`npm install react-router-dom  `
@@ -25,8 +28,8 @@
     "web-vitals": "^2.1.4"  
   },
 
-
-#### **Відео-демонстрація роботи вебсайту та всіх його фіч:**  
-https://youtu.be/Q2WCTd08xDw
+![preview1](website_preview/home_preview.png)
+![preview2](website_preview/about_preview1.png)
+![preview3](website_preview/about_preview2.png)
 
 ##### Harmash Oleksii
