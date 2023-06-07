@@ -6,7 +6,7 @@ const FavoriteStyle = styled.div`
     .favorite{
         margin-top: 2rem;
         padding-top: 0rem;
-        padding-bottom: 2rem;
+        padding-bottom: 8rem;
         padding-left: 25rem;
         padding-right: 25rem;
         width: 100%;

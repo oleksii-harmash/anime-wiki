@@ -2,6 +2,8 @@ import React from 'react'
 import Favorite from './Favorite'
 import { useGlobalContext } from '../context/global'
 import MainStyle from './MainStyle'
+import Upcoming from './Upcoming'
+import Airing from './Airing'
 
 function Main() {
     const {write_search, search, search_anime, do_search, fetch_favorite, fetch_upcoming, fetch_airing} = useGlobalContext()
@@ -11,6 +13,10 @@ function Main() {
         switch(rendered) {
             case 'favorite':
                 return <Favorite rendered={rendered}/>
+            case 'upcoming':
+                return <Upcoming rendered={rendered}/>
+            case 'airing':
+                return <Airing rendered={rendered}/>
             default:
                 return <Favorite rendered={rendered}/>
         }
