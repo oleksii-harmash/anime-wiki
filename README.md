@@ -29,4 +29,4 @@
 #### **Відео-демонстрація роботи вебсайту та всіх його фіч:**  
 https://youtu.be/Q2WCTd08xDw
 
-<p style="text-align: right;">author: Harmash Oleksii</p>
+div style="text-align: right"> author: Harmash Oleksii </div>
