@@ -1,138 +1,118 @@
-import React, {createContext, useContext, useReducer} from "react";
+import React, { useContext, useReducer } from "react";
 
-const GlobalContext = createContext();
+const GlobalContext = React.createContext();
+// базовий URL API аніме  - Jikan API
+const api_base_URL = 'https://api.jikan.moe/v4';
 
-const baseUrl = "https://api.jikan.moe/v4";
+const SEARCH_STATUS = 'SEARCH';
+const LOADING_STATUS = 'LOADING';
+const FETCH_FAVORITE = 'GET_FAVORITE';
+const FETCH_UPCOMING = 'GET_UPCOMING';
+const FETCH_AIRING = 'GET_AIRING';
 
-//actions
-const LOADING = "LOADING";
-const SEARCH = "SEARCH";
-const GET_POPULAR_ANIME = "GET_POPULAR_ANIME";
-const GET_UPCOMING_ANIME = "GET_UPCOMING_ANIME";
-const GET_AIRING_ANIME = "GET_AIRING_ANIME";
-const GET_PICTURES = "GET_PICTURES";
-
-//reducer
-const reducer = (state, action) => {
-    switch(action.type){
-        case LOADING:
-            return {...state, loading: true}
-        case GET_POPULAR_ANIME:
-            return {...state, popularAnime: action.payload, loading: false}
-        case SEARCH:
-            return {...state, searchResults: action.payload, loading: false}
-        case GET_UPCOMING_ANIME:
-            return {...state, upcomingAnime: action.payload, loading: false}
-        case GET_AIRING_ANIME:
-            return {...state, airingAnime: action.payload, loading: false}
-        case GET_PICTURES:
-            return {...state, pictures: action.payload, loading: false}
+// reducer hook
+const reducer = (data, action) => {
+    switch(action.type) {
+        case LOADING_STATUS:
+            return {...data, loading: true}
+        case FETCH_FAVORITE:
+            return {...data, favorite: action.payload, loading:false}
+        case SEARCH_STATUS:
+            return {...data, search_results: action.payload, loading:false}
+        case FETCH_UPCOMING:
+            return {...data, upcoming: action.payload, loading:false}
+        case FETCH_AIRING:
+            return {...data, airing: action.payload, loading:false}
         default:
-            return state;
+            return data;
     }
 }
 
-
 export const GlobalContextProvider = ({children}) => {
-    //intial state
-    const intialState = {
-        popularAnime: [],
-        upcomingAnime: [],
-        airingAnime: [],
-        pictures: [],
-        isSearch: false,
-        searchResults: [],
-        loading: false,
+    // створюємо потрібні масиви
+    const initial_data = {
+        favorite: [],        // масив для категорії "найпопулярніші"
+        upcoming: [],        // масив для категорії "скоро вийдуть"
+        airing: [],          // масив для категорії "в процесі"
+        pictures: [],           
+        search_results: [],        // масив для результатів пошуку
+        is_search: false,          // перевіряємо статус пошуку
+        loading: false,            // перевірка статусу завантаження
     }
 
-    const [state, dispatch] = useReducer(reducer, intialState);
-    const [search, setSearch] = React.useState('');
+    // reducer функція дозволяє змінювати вищеописаний initial_data
+    const [data, dispatch] = useReducer(reducer, initial_data);
+    const [search, def_search] = React.useState('')
 
-
-    //handle change
-    const handleChange = (e) => {
-        setSearch(e.target.value);
-        if(e.target.value === ''){
-            state.isSearch = false;
+    const write_search = (query) => {
+        def_search(query.target.value);
+        if(query.target.value === '') {
+            data.is_search = false;
         }
     }
 
-
-    //handle submit
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        if(search){
-            searchAnime(search);
-            state.isSearch = true;
-        }else{
-            state.isSearch = false;
-            alert('Please enter a search term')
+    const do_search = (query) => {
+        query.preventDefault();
+        if(search) {
+            search_anime(search);
+            data.is_search = true;
+        } else {
+            data.is_search = false;
+            alert('Incorrect search')
         }
     }
 
-    //fetch popular anime
-    const getPopularAnime = async () => {
-        dispatch({type: LOADING})
-        const response = await fetch(`${baseUrl}/top/anime?filter=bypopularity`);
+        
+    // фетч найпопулярніших аніме
+    const fetch_favorite = async () => {
+        // якщо даних немає, то відправляємо action LOADING
+        dispatch({type: LOADING_STATUS});
+        const response = await fetch(`${api_base_URL}/top/anime?filter=bypopularity`);
         const data = await response.json();
-        dispatch({type: GET_POPULAR_ANIME, payload: data.data})
+        // якщо дані є, то відправляємо їх з API в масив data 
+        dispatch({type: FETCH_FAVORITE, payload: data.data})
+        // тепер коли ми отримали дані по екшену FETCH_FAVORITE оновлюємо initial_data
     }
 
-    //fetch upcoming anime
-    const getUpcomingAnime = async () => {
-        dispatch({type: LOADING})
-        const response = await fetch(`${baseUrl}/top/anime?filter=upcoming`);
+    const fetch_upcoming = async () => {
+        dispatch({type: LOADING_STATUS});
+        const response = await fetch(`${api_base_URL}/top/anime?filter=upcoming`);
         const data = await response.json();
-        dispatch({type: GET_UPCOMING_ANIME, payload: data.data})
+        dispatch({type: FETCH_UPCOMING, payload: data.data})
     }
 
-
-    //fetch airing anime
-    const getAiringAnime = async () => {
-        dispatch({type: LOADING})
-        const response = await fetch(`${baseUrl}/top/anime?filter=airing`);
+    const fetch_airing = async () => {
+        dispatch({type: LOADING_STATUS});
+        const response = await fetch(`${api_base_URL}/top/anime?filter=airing`);
         const data = await response.json();
-        dispatch({type: GET_AIRING_ANIME, payload: data.data})
+        dispatch({type: FETCH_AIRING, payload: data.data})
     }
 
-    //search anime
-    const searchAnime = async (anime) => {
-        dispatch({type: LOADING})
-        const response = await fetch(`https://api.jikan.moe/v4/anime?q=${anime}&order_by=popularity&sort=asc&sfw`);
+    const search_anime = async (query) => {
+        dispatch({type: LOADING_STATUS})
+        const response = await fetch(`${api_base_URL}/anime?q=${query}&order_by=popularity&sort=asc&sfw`);
         const data = await response.json();
-        dispatch({type: SEARCH, payload: data.data})
+        dispatch({type: SEARCH_STATUS, payload: data.data})
     }
 
-    //get anime pictures
-    const getAnimePictures = async (id) => {
-        dispatch({type: LOADING})
-        const response = await fetch(`https://api.jikan.moe/v4/characters/${id}/pictures`);
-        const data = await response.json();
-        dispatch({type: GET_PICTURES, payload: data.data})
-    }
+    // initial render
+    React.useEffect(() => {fetch_favorite()}, [])
 
-    //initial render
-    React.useEffect(() => {
-        getPopularAnime();
-    }, [])
-
-    return(
+    return (
         <GlobalContext.Provider value={{
-            ...state,
-            handleChange,
-            handleSubmit,
-            searchAnime,
+            ...data,
+            write_search,
+            do_search,
+            search_anime,
             search,
-            getPopularAnime,
-            getUpcomingAnime,
-            getAiringAnime,
-            getAnimePictures 
+            fetch_favorite,
+            fetch_upcoming,
+            fetch_airing,
         }}>
             {children}
         </GlobalContext.Provider>
     )
 }
 
-export const useGlobalContext = () => {
-    return useContext(GlobalContext);
-}
+// ця функція дозволяє використовувати GlobalContext
+export const useGlobalContext = () => {return useContext(GlobalContext);}
