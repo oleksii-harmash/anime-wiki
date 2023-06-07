@@ -2,6 +2,7 @@ import styled from 'styled-components'
 
 
 const AnimeCardStyle = styled.div`
+
     padding-top: 8rem;
     padding-left: 33rem;
     padding-right: 33rem;
@@ -17,6 +18,25 @@ const AnimeCardStyle = styled.div`
         font-weight: Bold;
     }
 
+    .back{
+        position: absolute;
+        top: 3rem;
+        left: 3rem;
+        a{
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 13px;
+            font-style: italic;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: .5rem;
+        }
+    }
+    .back a:hover {
+        text-decoration: underline;
+      }
+        
     .trailer{
         padding-top: 3rem;
         display: flex;
@@ -68,11 +88,16 @@ const AnimeCardStyle = styled.div`
                 outline: none;
                 cursor: pointer;
                 font-size: 0.7rem;
-                color: #00D6E7;
+                color: white;
                 font-weight: 600;
+                &:hover {
+                    text-decoration: underline;
+                  }
+                }
+                
             }
         }
-    }
+        }
 
     .characters{
         display: grid;

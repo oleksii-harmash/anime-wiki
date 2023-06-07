@@ -2,7 +2,8 @@
 import React from 'react'
 import { useGlobalContext } from '../context/global'
 import { Link } from 'react-router-dom'
-import FavoriteStyle from './FavoriteStyle'
+import FavoriteStyle  from './FavoriteStyle'
+
 
 
 // функція, що мапить дані про найпопулярніші аніме
@@ -30,12 +31,13 @@ function Favorite({rendered}) {
     }
   }
 
+
   return (
-    <FavoriteStyle>
-      <div className='favorite'>
-        {render()}
-      </div>
-    </FavoriteStyle>
+      <FavoriteStyle>
+        <div className='favorite'>
+          {render()}
+        </div>
+      </FavoriteStyle>
   )
 }
 

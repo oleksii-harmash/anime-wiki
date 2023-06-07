@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import FavoriteStyle from './FavoriteStyle'
 
 
-// функція, що мапить дані про найпопулярніші аніме
+// функція, що мапить дані про найближчі аніме
 function Upcoming({rendered}) {
   const {upcoming, is_search, search_results} = useGlobalContext()
   

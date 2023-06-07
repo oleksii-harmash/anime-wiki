@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import FavoriteStyle from './FavoriteStyle'
 
 
-// функція, що мапить дані про найпопулярніші аніме
+// функція, що мапить дані про аніме, що виходять в даний момент
 function Airing({rendered}) {
   const {airing, is_search, search_results} = useGlobalContext()
   

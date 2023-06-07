@@ -4,9 +4,11 @@ import { useGlobalContext } from '../context/global'
 import MainStyle from './MainStyle'
 import Upcoming from './Upcoming'
 import Airing from './Airing'
+import styled from 'styled-components'
+
 
 function Main() {
-    const {write_search, search, search_anime, do_search, fetch_favorite, fetch_upcoming, fetch_airing} = useGlobalContext()
+    const {write_search, search, do_search, fetch_upcoming, fetch_airing} = useGlobalContext()
     const [rendered, def_rendered] = React.useState('favorite')
     
     const navigate = () => {
@@ -22,14 +24,13 @@ function Main() {
         }
     }
   return (
+    <>
+    <TitleStyle>
+      <h1>wiki-anime</h1>
+      <h2>by O. Harmash</h2>
+    </TitleStyle>
     <MainStyle>
         <header>
-            <div className='logo'>
-                {/* <h1>
-                    {rendered === 'favorite' ? 'Favorite': 
-                    rendered === 'airing'? 'Airing': 'Upcoming'}
-                </h1> */}
-            </div>
             <div className='search'>
                 <div className='favorite-filter'>
                     <button onClick={() => {def_rendered('favorite')}}>Favorite</button>
@@ -56,8 +57,32 @@ function Main() {
         </header>
         {navigate()}
     </MainStyle>
+    </>
   )
 }
+
+
+const TitleStyle = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 2rem;
+  color: white;
+
+  h1 {
+    font-size: 35px;
+    font-family: "Pacifico", sans-serif;
+  }
+
+  h2 {
+    font-size: 9px;
+    font-family: "Ubuntu", sans-serif;
+    margin-top: -0.5rem;
+    font-style: italic;
+    margin-left: 4rem;
+  }
+`
 
 
 export default Main

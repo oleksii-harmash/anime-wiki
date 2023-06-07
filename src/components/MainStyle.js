@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 
 const MainStyle = styled.div`
-background-color: #0D0D0D;
     header{
         padding: 2rem 5rem;
         width: 50%;
@@ -12,12 +11,6 @@ background-color: #0D0D0D;
         transition: all .4s ease-in-out;
         @media screen and (max-width:1530px){
             width: 95%;
-        }
-        .logo{
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 2rem;
         }
         .search{
             display: flex;

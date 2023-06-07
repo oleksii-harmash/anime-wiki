@@ -1,8 +1,10 @@
 import styled from 'styled-components'
 
-//  css стилізація для Favorite категорії
+
+//  css стилізація для Favorite, Airing, Upcoming react-компонент
 const FavoriteStyle = styled.div`
     display: flex;
+
     .favorite{
         margin-top: 2rem;
         padding-top: 0rem;
@@ -38,6 +40,3 @@ const FavoriteStyle = styled.div`
     }
 `;
 export default FavoriteStyle;
-// grid-template-areas: "a b c d e f g";
-// grid-auto-columns: 300px;
-// grid-auto-rows: 400px;

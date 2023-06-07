@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import AnimeCardStyle from './AnimeCardStyle'
+import { FaArrowLeft } from 'react-icons/fa';
 
 
 function AnimeCard() {
@@ -25,7 +26,6 @@ function AnimeCard() {
         console.log(data.data)
     }
 
-
     useEffect(() => {
         fetch_anime(anime_id)
         fetch_characters(anime_id)
@@ -34,6 +34,13 @@ function AnimeCard() {
 
     return (
         <AnimeCardStyle>
+            <div className="back">
+                <Link to="/">
+                    <i className="arrow"></i>
+                    <FaArrowLeft />
+                    back to Home
+                </Link>
+            </div>
             <h1>{title_english} / {title}</h1>
             <div className='info'>
                 <div className='about'>
@@ -74,13 +81,11 @@ function AnimeCard() {
                 {characters?.map((character, index) => {
                     const {role} = character
                     const {images, name, mal_id} = character.character
-                    return <Link to={`/character/${mal_id}`} key={index}>
-                        <div className="character">
-                            <img src={images?.jpg.image_url} alt="" />
+                    return <div className="character">
+                            <img to={`/character/${mal_id}`} key={index} src={images?.jpg.image_url} alt="" />
                             <h4>{name}</h4>
                             <p>{role}</p>
                         </div>
-                    </Link>
                 })}
             </div>
         </AnimeCardStyle>
