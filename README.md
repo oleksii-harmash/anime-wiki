@@ -1,7 +1,7 @@
 
 # anime-wiki
 
-Базовий API - Jikan Anime: https://api.jikan.moe/v4
+Базовий API - Jikan Anime: [https://api.jikan.moe/](https://jikan.moe/)
 
 #### **Відео-демонстрація роботи вебсайту та всіх його фіч:**  
 https://youtu.be/Q2WCTd08xDw
